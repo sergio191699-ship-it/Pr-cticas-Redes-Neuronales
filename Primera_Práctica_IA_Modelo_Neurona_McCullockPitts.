@@ -1,0 +1,130 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyM/zFsbTy+K+kPOydn1SUFX",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/sergio191699-ship-it/Pr-cticas-Redes-Neuronales/blob/main/Primera_Pr%C3%A1ctica_IA_Modelo_Neurona_McCullockPitts.\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#Neurona de McCullock-Pitts\n",
+        "\n",
+        "Este es un ejemplo de una neurona de McCullock-Pits para resolver el problema de la operación lógica AND"
+      ],
+      "metadata": {
+        "id": "gbBVATyLgQIj"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "id": "TWMq5JW8UcD4"
+      },
+      "outputs": [],
+      "source": [
+        "import numpy as np\n",
+        "# Entradas para la neurona\n",
+        "X = np.array([\n",
+        "    [0, 0],\n",
+        "    [0, 1],\n",
+        "    [1, 0],\n",
+        "    [1, 1]\n",
+        "])\n",
+        "# Salidas\n",
+        "Y = np.array([0, 0, 0, 1])\n",
+        "# Pesos para las entradas\n",
+        "W = [1, 2]\n",
+        "# Umbral para la función de activación\n",
+        "umbral = 3"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "class McCullochPitts:\n",
+        "    def __init__(self, weights, umbral):\n",
+        "        \"\"\"\n",
+        "            Constructor de la neurona MCP.\n",
+        "            Guarda las variables\n",
+        "            weights -> vector de pesos iniciales\n",
+        "            umbral -> umbral para usar en la funcion de activación\n",
+        "        \"\"\"\n",
+        "        self.weights = weights\n",
+        "        self.umbral = umbral\n",
+        "\n",
+        "    def predict(self, X):\n",
+        "        \"\"\"\n",
+        "            Calcula la salida de la neurona para cada fila de entradas X.\n",
+        "        \"\"\"\n",
+        "        # Lista donde se guardarán las salidas\n",
+        "        predictions = []\n",
+        "        # Recorremos cada fila de entradas\n",
+        "        for i in range(X.shape[0]):\n",
+        "            # Calculamos la suma ponderada: w1*x1 + w2*x2\n",
+        "            weighted_sum = np.dot(self.weights, X[i])\n",
+        "            # Mostramos en consola la entrada y la suma ponderada\n",
+        "            print(f\"Input: {X[i]}, Weighted Sum: {weighted_sum}\")\n",
+        "            # Comparación con el umbral determinar si la neurona se activa o no\n",
+        "            if weighted_sum >= self.umbral:\n",
+        "                predictions.append(1)\n",
+        "            else:\n",
+        "                predictions.append(0)\n",
+        "        return predictions"
+      ],
+      "metadata": {
+        "id": "qNri2rBkduMe"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Recorriendo el arreglo x por filas, es lo que hace el shape.\n",
+        "Cubito indica"
+      ],
+      "metadata": {
+        "id": "jhtj8EMSfFtm"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Instanciamos la clase McCullochPitts\n",
+        "mcp = McCullochPitts(W, umbral)\n",
+        "# Calculamos las predicciones\n",
+        "predictions = mcp.predict(X)\n",
+        "# Mostramos el resultado final\n",
+        "print(\"Predictions:\", predictions)"
+      ],
+      "metadata": {
+        "id": "Dpx0S4N0ffX7"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
